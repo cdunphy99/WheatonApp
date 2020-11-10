@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "6837568816",
+    "firebase_url": "https://cantaloupe-7576b.firebaseio.com",
+    "project_id": "cantaloupe-7576b",
+    "storage_bucket": "cantaloupe-7576b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6837568816:android:eb1977ec126a97e2a534f5",
+        "android_client_info": {
+          "package_name": "com.wheaton.wheatonapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6837568816-rc6n6l2d7cijp4h4l8kpu1bshfaaauak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkEvEj64NmbF95hv9XxZY3ID2paEq1yK0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6837568816-rc6n6l2d7cijp4h4l8kpu1bshfaaauak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
