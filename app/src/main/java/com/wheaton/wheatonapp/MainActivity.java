@@ -61,18 +61,35 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    boolean subFABsVisible = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // FAB code
         FloatingActionButton mainFAB = findViewById(R.id.mainFAB);
+        View view;
+        final FloatingActionButton miniFAB1 = findViewById(R.id.miniFAB1);
+        final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
+
         mainFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Context context;
                 CharSequence text;
                 Toast.makeText(getApplicationContext(), "You have pressed the FAB.", Toast.LENGTH_SHORT).show();
+                // I will look into transitions to make this visibility change look "smooth" to the user. right now it should look instant.
+                if(subFABsVisible) {
+                    miniFAB1.hide();
+                    miniFAB2.hide();
+                    subFABsVisible = false;
+                }
+                else{
+                    miniFAB1.show();
+                    miniFAB2.show();
+                    subFABsVisible = true;
+                }
             }
         });
     }
