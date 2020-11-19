@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
 
         String retId = prefs.getString("wheaton_myId", "none");
-        Log.d("idWorks", retId);
+        Log.d("idWorks2", retId);
 
         if(retId.equals("none")){
             Log.d("idWorks", "equals");
@@ -161,8 +161,9 @@ public class MainActivity extends AppCompatActivity {
             Random rand = new Random();
             String sender = String.valueOf(rand.nextInt(999999999));
 
-            while(!pullData()){
+            if(!pullData()){
                 sender = String.valueOf(rand.nextInt(999999999));
+                Log.d("idWorksrandom", sender);
             }
 
             SharedPreferences.Editor editor = prefs.edit();
