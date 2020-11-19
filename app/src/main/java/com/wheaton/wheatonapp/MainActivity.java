@@ -2,8 +2,6 @@ package com.wheaton.wheatonapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,10 +9,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +24,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,17 +32,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private WebView webView;
-    private boolean cardView_Shown = true;
-
-    RecyclerView recyclerView;
-    ArrayList<String> source;
-    RecyclerView.LayoutManager RecyclerViewLayoutManager;
-    recylerAdapter adapter;
-    LinearLayoutManager HorizontalLayout;
-
-    View ChildView;
-    int RecyclerViewItemPosition;
 
     String myId = "1";
 
@@ -146,10 +128,6 @@ public class MainActivity extends AppCompatActivity {
         final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
 
 
-        webView = findViewById(R.id.webView);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://www.google.com");
-
         SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
 
         String retId = prefs.getString("wheaton_myId", "none");
@@ -198,50 +176,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        miniFAB1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hide_showCardView();
-            }
-        });
-
-        //https://www.geeksforgeeks.org/android-horizontal-recyclerview-with-examples/
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
-        RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(RecyclerViewLayoutManager);
-        AddItemsToRecyclerViewArrayList();
-        adapter = new recylerAdapter(source);
-        HorizontalLayout = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(HorizontalLayout);
-        recyclerView.setAdapter(adapter);
-
-
     }
-
-    public void AddItemsToRecyclerViewArrayList() {
-        // Adding items to ArrayList
-        source = new ArrayList<>();
-        source.add("Sticky1");
-        source.add("Sticky2");
-        source.add("Sticky3");
-    }
-
-
-    public void click(View view) {
-        TextView t = (TextView) findViewById (R.id.textview);
-        Toast.makeText(getApplicationContext(), "You have pressed a sticky.".concat(t.getText().toString()), Toast.LENGTH_SHORT).show();
-    }
-
-    public void hide_showCardView(){
-        RelativeLayout r = (RelativeLayout) findViewById(R.id.rView);
-        if(cardView_Shown){
-            r.setVisibility(View.GONE);
-            cardView_Shown = false;
-        } else {
-            r.setVisibility(View.VISIBLE);
-            cardView_Shown = true;
-        }
-    }
-
 }
