@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
@@ -69,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+    boolean subFABsVisible = false;
+
     protected boolean pullData(){
         //Description:
         //This function pulls all notes from Firebase that have the the Id found in sharedPrefs.
@@ -108,10 +115,18 @@ public class MainActivity extends AppCompatActivity {
         else return false;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // FAB code
+        FloatingActionButton mainFAB = findViewById(R.id.mainFAB);
+        View view;
+        final FloatingActionButton miniFAB1 = findViewById(R.id.miniFAB1);
+        final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
+
 
         SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
 
@@ -141,4 +156,25 @@ public class MainActivity extends AppCompatActivity {
         pullData();
     }
 
+
+        mainFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Context context;
+                CharSequence text;
+                Toast.makeText(getApplicationContext(), "You have pressed the FAB.", Toast.LENGTH_SHORT).show();
+                // I will look into transitions to make this visibility change look "smooth" to the user. right now it should look instant.
+                if(subFABsVisible) {
+                    miniFAB1.hide();
+                    miniFAB2.hide();
+                    subFABsVisible = false;
+                }
+                else{
+                    miniFAB1.show();
+                    miniFAB2.show();
+                    subFABsVisible = true;
+                }
+            }
+        });
+    }
 }
