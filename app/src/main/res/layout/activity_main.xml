@@ -8,21 +8,31 @@
     android:orientation="vertical">
 
 
-    <com.google.android.material.circularreveal.CircularRevealRelativeLayout
+    <LinearLayout
         android:id="@+id/rView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:scrollbars="horizontal"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:elevation="1dp"/>
-    </com.google.android.material.circularreveal.CircularRevealRelativeLayout>
+            android:elevation="1dp"
+            android:layout_weight="5"/>
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:text="+"
+            android:onClick="add">
+
+        </Button>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

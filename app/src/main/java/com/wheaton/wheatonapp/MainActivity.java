@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Adapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean cardView_Shown = true;
 
     RecyclerView recyclerView;
-    ArrayList<String> source;
+    ArrayList<StickyNoteObject> source;
     RecyclerView.LayoutManager RecyclerViewLayoutManager;
     recylerAdapter adapter;
     LinearLayoutManager HorizontalLayout;
@@ -135,6 +137,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -207,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //https://www.geeksforgeeks.org/android-horizontal-recyclerview-with-examples/
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(RecyclerViewLayoutManager);
@@ -223,9 +230,9 @@ public class MainActivity extends AppCompatActivity {
     public void AddItemsToRecyclerViewArrayList() {
         // Adding items to ArrayList
         source = new ArrayList<>();
-        source.add("Sticky1");
-        source.add("Sticky2");
-        source.add("Sticky3");
+        source.add(new StickyNoteObject("Sticky1", "Hello1"));
+        source.add(new StickyNoteObject("Sticky2", "Hello2"));
+        source.add(new StickyNoteObject("Sticky3", "Hello3"));
     }
 
 
@@ -235,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hide_showCardView(){
-        RelativeLayout r = (RelativeLayout) findViewById(R.id.rView);
+        LinearLayout r = (LinearLayout) findViewById(R.id.rView);
         if(cardView_Shown){
             r.setVisibility(View.GONE);
             cardView_Shown = false;
@@ -244,5 +251,13 @@ public class MainActivity extends AppCompatActivity {
             cardView_Shown = true;
         }
     }
+
+    public void add(View view){
+        source.add(new StickyNoteObject("New Sticky", "New Message"));
+        adapter.notifyDataSetChanged();
+    }
+
+
+
 
 }

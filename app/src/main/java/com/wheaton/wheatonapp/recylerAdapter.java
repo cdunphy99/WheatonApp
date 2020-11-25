@@ -1,6 +1,7 @@
 package com.wheaton.wheatonapp;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 // The adapter class which
@@ -17,7 +19,7 @@ import java.util.List;
 public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> {
 
     // List with String type
-    private List<String> list;
+    private List<StickyNoteObject> list;
     Context context;
 
     // View Holder class which
@@ -42,7 +44,7 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
 
     // Constructor for adapter class
     // which takes a list of String type
-    public recylerAdapter(List<String> horizontalList)
+    public recylerAdapter(List<StickyNoteObject> horizontalList)
     {
         this.list = horizontalList;
     }
@@ -74,15 +76,16 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
 
         // Set the text of each item of
         // Recycler view with the list items
-        holder.textView.setText(list.get(position));
-
+        holder.textView.setText(list.get(position).getTitle());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nameOut = (String) holder.textView.getText();
-                Log.d("cardView", "Yo " + nameOut);
+                StickyNoteObject stickyOut = (StickyNoteObject) list.get(position);
+                Log.d("cardView", "Yo " + stickyOut.getTitle());
                 Intent i = new Intent(context, stickyNotePopUpActivity.class);
-                i.putExtra("name",nameOut);
+                i.putExtra("Title", stickyOut.getTitle());
+                i.putExtra("Sticky", stickyOut);
+
                 context.startActivity(i);
             }
         });
