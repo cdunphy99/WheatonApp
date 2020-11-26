@@ -11,9 +11,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Adapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private WebView webView;
     private boolean cardView_Shown = true;
+    private boolean addressBar_Shown = false;
 
     RecyclerView recyclerView;
     ArrayList<StickyNoteObject> source;
@@ -157,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("https://www.google.com");
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
         SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
 
@@ -214,6 +220,12 @@ public class MainActivity extends AppCompatActivity {
                 hide_showCardView();
             }
         });
+        miniFAB2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggleAddressBar();
+            }
+        });
 
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
@@ -240,12 +252,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void hide_showCardView(){
-        LinearLayout r = (LinearLayout) findViewById(R.id.rView);
+        RecyclerView rview = (RecyclerView) findViewById(R.id.recyclerview);
+        Button addStickyButton = (Button) findViewById(R.id.addStickyButton);
         if(cardView_Shown){
-            r.setVisibility(View.GONE);
+            rview.setVisibility(View.GONE);
+            addStickyButton.setVisibility(View.GONE);
             cardView_Shown = false;
         } else {
-            r.setVisibility(View.VISIBLE);
+            if(addressBar_Shown){
+                toggleAddressBar();
+            }
+            rview.setVisibility(View.VISIBLE);
+            addStickyButton.setVisibility(View.VISIBLE);
             cardView_Shown = true;
         }
     }
@@ -255,6 +273,29 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    public void toggleAddressBar(){
+        EditText addressBar = (EditText) findViewById(R.id.addressBar);
+        Button goButton = (Button) findViewById(R.id.goButton);
+        if(addressBar_Shown) {
+            addressBar.setVisibility(View.GONE);
+            goButton.setVisibility(View.GONE);
+            addressBar_Shown = false;
+        }
+        else{
+            if(cardView_Shown) {
+                hide_showCardView();
+            }
+            addressBar.setVisibility(View.VISIBLE);
+            goButton.setVisibility(View.VISIBLE);
+            addressBar_Shown = true;
+        }
+    }
+
+    public void goToURL(View view){
+        EditText addressBar = (EditText) findViewById(R.id.addressBar);
+        WebView web = (WebView) findViewById(R.id.webView);
+        webView.loadUrl("https://www." + addressBar.getText().toString());
+    }
 
 
 
