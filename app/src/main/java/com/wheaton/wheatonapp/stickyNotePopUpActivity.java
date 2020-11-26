@@ -13,11 +13,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class stickyNotePopUpActivity extends AppCompatActivity {
 
     public StickyNoteObject Sticky;
+    List<StickyNoteObject> list;
+    int p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,9 @@ public class stickyNotePopUpActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("Title");
         Sticky = (StickyNoteObject) intent.getParcelableExtra("Sticky");
+        p = intent.getIntExtra("P",-1 );
+        list = intent.getParcelableArrayListExtra("List");
+
 
         TextView t = (TextView) findViewById(R.id.textViewTitle);
         t.setText(Sticky.getTitle());
@@ -62,6 +68,8 @@ public class stickyNotePopUpActivity extends AppCompatActivity {
         EditText mE = (EditText) findViewById(R.id.textViewMsg);
         Sticky.setTitle(tE.getText().toString());
         Sticky.setMsg(mE.getText().toString());
+        list.set(p,Sticky);
+        list.remove(p);
     }
 
 
