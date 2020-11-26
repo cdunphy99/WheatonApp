@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 // The adapter class which
@@ -85,6 +86,8 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
                 Intent i = new Intent(context, stickyNotePopUpActivity.class);
                 i.putExtra("Title", stickyOut.getTitle());
                 i.putExtra("Sticky", stickyOut);
+                i.putExtra("P",position);
+                i.putParcelableArrayListExtra("List", (ArrayList<StickyNoteObject>) list);
 
                 context.startActivity(i);
             }

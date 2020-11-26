@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("Main", "Yo ");
 
         // FAB code
         FloatingActionButton mainFAB = findViewById(R.id.mainFAB);
@@ -157,12 +158,6 @@ public class MainActivity extends AppCompatActivity {
         final FloatingActionButton miniFAB1 = findViewById(R.id.miniFAB1);
         final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
 
-
-        webView = findViewById(R.id.webView);
-        webView.setWebViewClient(new WebViewClient());
-        webView.loadUrl("https://www.google.com");
-        WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
 
         SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
 
@@ -235,6 +230,10 @@ public class MainActivity extends AppCompatActivity {
         HorizontalLayout = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(HorizontalLayout);
         recyclerView.setAdapter(adapter);
+
+        webView = findViewById(R.id.webView);
+        webView.setWebViewClient(new customWeb(adapter,HorizontalLayout,recyclerView,MainActivity.this));
+        webView.loadUrl("https://www.google.com");
     }
 
     public void AddItemsToRecyclerViewArrayList() {
