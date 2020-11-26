@@ -43,7 +43,7 @@
             android:layout_width="298dp"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter URL..."
+            android:hint="Enter URL (do not enter http://)"
             android:inputType="textPersonName"
             android:visibility="gone" />
 
