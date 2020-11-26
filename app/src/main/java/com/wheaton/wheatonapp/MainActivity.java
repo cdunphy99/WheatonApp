@@ -223,8 +223,6 @@ public class MainActivity extends AppCompatActivity {
         HorizontalLayout = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(HorizontalLayout);
         recyclerView.setAdapter(adapter);
-
-
     }
 
     public void AddItemsToRecyclerViewArrayList() {
