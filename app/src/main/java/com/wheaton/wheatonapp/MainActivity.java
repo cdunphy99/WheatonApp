@@ -104,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
 
     boolean subFABsVisible = false;
 
-    protected boolean pullData(){
     public ArrayList<Map<String, Object>> pullData(){
         //Description:
         //This function pulls all notes from Firebase that have the the Id found in sharedPrefs.
@@ -118,8 +117,6 @@ public class MainActivity extends AppCompatActivity {
         //pullData();
         //or
         //if(pullData()){}
-
-        //TODO Make array public
 
         final boolean[] found = {false};
         final ArrayList<Map<String, Object>> noteContent = new ArrayList<>();
@@ -143,10 +140,8 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         if(found[0]){
-            return true;
             return noteContent;
         }
-        else return false;
         else return null;
     }
 
