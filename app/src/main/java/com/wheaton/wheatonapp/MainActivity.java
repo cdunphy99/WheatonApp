@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
     boolean subFABsVisible = false;
 
     protected boolean pullData(){
+    public ArrayList<Map<String, Object>> pullData(){
         //Description:
         //This function pulls all notes from Firebase that have the the Id found in sharedPrefs.
         //SharedPrefs will contain this instance of the app's unique Id (and if it contains nothing
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO Make array public
 
         final boolean[] found = {false};
+        final ArrayList<Map<String, Object>> noteContent = new ArrayList<>();
 
         db.collection("notes")
                 .whereEqualTo("id", myId)
@@ -131,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("firestore", document.getId() + " => " + document.getData());
+                                noteContent.add(document.getData());
                             }
                             found[0] = true;
                         } else {
@@ -141,8 +144,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(found[0]){
             return true;
+            return noteContent;
         }
         else return false;
+        else return null;
     }
 
     //TODO 'Delete' function
