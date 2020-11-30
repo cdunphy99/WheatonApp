@@ -71,12 +71,16 @@ public class MainActivity extends AppCompatActivity {
         //pushdata("Grocery List", "eggs, ham, orange juice");
         //May be changed later to store a json encoded string of data to support markdown.
 
+        //TODO Add URL param
+        //TODO customWeb needs these functions
+
         Map<String, Object> note = new HashMap<>();
 
         Date date = new Date();
         Timestamp timeStamp = new Timestamp(date);
 
         note.put("name", name);
+        //TODO No XML, just string from sticky note object
         note.put("text", text);
         note.put("time", timeStamp);
         note.put("id", myId);
@@ -114,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
         //or
         //if(pullData()){}
 
+        //TODO Make array public
+
         final boolean[] found = {false};
 
         db.collection("notes")
@@ -138,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
         }
         else return false;
     }
+
+    //TODO 'Delete' function
 
 
     @Override
