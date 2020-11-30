@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     String myId = "1";
 
-    protected void pushData(String name, String text){
+    public void pushData(String name, String text){
         //Description:
         //This function pushes data to the Firebase database ("Cloud Firestore") in the form of
         //a Map containing the name of the note, the content or "text" of the note, and
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
         final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
 
 
-        SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
+
 
         String retId = prefs.getString("wheaton_myId", "none");
         Log.d("idWorks2", retId);
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
             Random rand = new Random();
             String sender = String.valueOf(rand.nextInt(999999999));
 
-            if(!pullData()){
+            if(pullData() == null){
                 sender = String.valueOf(rand.nextInt(999999999));
                 Log.d("idWorksrandom", sender);
             }
