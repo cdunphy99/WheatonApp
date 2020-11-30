@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     String myId = "1";
 
-    public void pushData(String name, String text){
+    public void pushData(String name, String text, String url){
         //Description:
         //This function pushes data to the Firebase database ("Cloud Firestore") in the form of
         //a Map containing the name of the note, the content or "text" of the note, and
@@ -64,19 +64,16 @@ public class MainActivity extends AppCompatActivity {
         //pushdata("Grocery List", "eggs, ham, orange juice");
         //May be changed later to store a json encoded string of data to support markdown.
 
-        //TODO Add URL param
-        //TODO customWeb needs these functions
-
         Map<String, Object> note = new HashMap<>();
 
         Date date = new Date();
         Timestamp timeStamp = new Timestamp(date);
 
         note.put("name", name);
-        //TODO No XML, just string from sticky note object
         note.put("text", text);
         note.put("time", timeStamp);
         note.put("id", myId);
+        note.put("url", url);
 
         db.collection("notes")
                 .add(note)
