@@ -19,7 +19,6 @@ public class customWeb extends WebViewClient {
     MainActivity Main;
     String currURL;
 
-
     //You can use pushData, pullData, and deleteData by calling like this: 'Main.pullData()'
 
     public customWeb(recylerAdapter adapter, LinearLayoutManager HorizontalLayout, RecyclerView recyclerView, MainActivity m) {
@@ -39,7 +38,6 @@ public class customWeb extends WebViewClient {
         HorizontalLayoutMain = new LinearLayoutManager(Main, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewMain.setLayoutManager(HorizontalLayoutMain);
         recyclerViewMain.setAdapter(adapterMain);
-
     }
 
     public void AddItemsToRecyclerViewArrayList() {
