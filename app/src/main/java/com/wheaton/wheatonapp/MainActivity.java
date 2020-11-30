@@ -160,6 +160,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("Main", "Yo ");
 
+        SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
+
+        myId = prefs.getString("wheaton_myId", "DEFAULT_VALUE");
+
         // FAB code
         FloatingActionButton mainFAB = findViewById(R.id.mainFAB);
         View view;
