@@ -6,12 +6,16 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -20,6 +24,7 @@ import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -194,20 +199,21 @@ public class MainActivity extends AppCompatActivity {
         mainFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Context context;
-                CharSequence text;
-                Toast.makeText(getApplicationContext(), "You have pressed the FAB.", Toast.LENGTH_SHORT).show();
-                // I will look into transitions to make this visibility change look "smooth" to the user. right now it should look instant.
-                if(subFABsVisible) {
-                    miniFAB1.hide();
-                    miniFAB2.hide();
-                    subFABsVisible = false;
-                }
-                else{
-                    miniFAB1.show();
-                    miniFAB2.show();
-                    subFABsVisible = true;
-                }
+//                Context context;
+//                CharSequence text;
+//                Toast.makeText(getApplicationContext(), "You have pressed the FAB.", Toast.LENGTH_SHORT).show();
+//                // I will look into transitions to make this visibility change look "smooth" to the user. right now it should look instant.
+//                if(subFABsVisible) {
+//                    miniFAB1.hide();
+//                    miniFAB2.hide();
+//                    subFABsVisible = false;
+//                }
+//                else{
+//                    miniFAB1.show();
+//                    miniFAB2.show();
+//                    subFABsVisible = true;
+//                }
+                onButtonShowPopupWindowClick(view);
             }
         });
 
@@ -237,11 +243,59 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebViewClient(new customWeb(adapter,HorizontalLayout,recyclerView,MainActivity.this));
         webView.loadUrl("https://www.google.com");
 
-        DraggableSticky testDrag = new DraggableSticky("test", "test2");
-        LinearLayout rView = findViewById(R.id.rView);
-        rView.addView(findViewById(R.id.draglayout));
+        DraggableSticky test = new DraggableSticky("test", "test");
+        LayoutInflater layoutInflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
 
     }
+
+    public void onButtonShowPopupWindowClick(View view) {
+
+        // inflate the layout of the popup window
+        LayoutInflater inflater = (LayoutInflater)
+                getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.draggablesticky, null);
+
+        // create the popup window
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        boolean focusable = true; // lets taps outside the popup also dismiss it
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+
+        // show the popup window
+        // which view you pass in doesn't matter, it is only used for the window tolken
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+        // dismiss the popup window when touched
+        popupView.setOnTouchListener(new View.OnTouchListener() {
+            int dx;
+            int dy;
+            int xp;
+            int yp;
+            int sides;
+            int topBot;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        dx = (int) event.getX();
+                        dy = (int) event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        xp = (int) event.getRawX();
+                        yp = (int) event.getRawY();
+                        sides = (xp - dx);
+                        topBot = (yp - dy);
+                        popupWindow.update(sides, topBot, -1, -1, true);
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+
 
     public void AddItemsToRecyclerViewArrayList() {
         // Adding items to ArrayList
