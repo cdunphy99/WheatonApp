@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
@@ -234,6 +235,9 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webView.setWebViewClient(new customWeb(adapter,HorizontalLayout,recyclerView,MainActivity.this));
         webView.loadUrl("https://www.google.com");
+
+        DraggableSticky testDrag = new DraggableSticky("test", "test2");
+
     }
 
     public void AddItemsToRecyclerViewArrayList() {

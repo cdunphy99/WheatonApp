@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/draglayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:maxWidth="100sp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/dragtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffee8c"
+        android:text="Title">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/dragmessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff7b8"
+        android:text="message: hello there">
+
+    </TextView>
+
+</LinearLayout>
