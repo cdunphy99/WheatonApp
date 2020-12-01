@@ -2,6 +2,7 @@ package com.wheaton.wheatonapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -237,6 +238,8 @@ public class MainActivity extends AppCompatActivity {
         webView.loadUrl("https://www.google.com");
 
         DraggableSticky testDrag = new DraggableSticky("test", "test2");
+        LinearLayout rView = findViewById(R.id.rView);
+        rView.addView(findViewById(R.id.draglayout));
 
     }
 
