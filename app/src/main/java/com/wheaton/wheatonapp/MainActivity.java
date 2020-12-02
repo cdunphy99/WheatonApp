@@ -184,8 +184,7 @@ public class MainActivity extends AppCompatActivity {
         final FloatingActionButton miniFAB1 = findViewById(R.id.miniFAB1);
         final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
 
-
-
+        ArrayList<Map<String, Object>> testArray = pullData();
 
         String retId = prefs.getString("wheaton_myId", "none");
         Log.d("idWorks2", retId);
