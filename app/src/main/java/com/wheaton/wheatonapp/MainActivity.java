@@ -135,7 +135,31 @@ public class MainActivity extends AppCompatActivity {
         else return null;
     }
 
-    //TODO 'Delete' function
+    public void deleteData(String documentId){
+        //Description:
+        //This function will take a Document ID, which can be found in the Document objects
+        //in the array returned by pullData, and delete that particular document from the
+        //firestore database. It does not return anything.
+        //Usage:
+        //deleteData("Document ID String")
+        //Example:
+        //deleteData("agzJJe3lh7GpUpgFYMwe")  <--- This is what Document IDs look like
+
+        db.collection("notes").document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("firestore", "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("firestore", "Error deleting document", e);
+                    }
+                });
+    }
 
 
     @Override
