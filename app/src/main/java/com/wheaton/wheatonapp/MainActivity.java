@@ -99,14 +99,14 @@ public class MainActivity extends AppCompatActivity {
         //This function pulls all notes from Firebase that have the the Id found in sharedPrefs.
         //SharedPrefs will contain this instance of the app's unique Id (and if it contains nothing
         //it will be updated to contain a random number that is not already used as an id in
-        //Firebase. For the time being the function simply prints each note to Logcat for testing
-        //purposes, but it will be updated to send all notes to an array for display in the app's
-        //main activity. This function returns a boolean that will be true when any notes are found
-        //with this app's Id. The function is also used to test if an Id is already used in Firebase.
+        //Firebase. The function returns an array of Maps containing the Document data from firestore.
+        //It will return null if an error occurs and will log the error with the tag 'firestore'.
         //Usage:
-        //pullData();
+        //ArrayList<Map<String, Object>> arrayName = pullData();
         //or
-        //if(pullData()){}
+        //if(pullData() != null){ CODE }
+
+        Log.d("firestore", "Began firestore call.");
 
         final boolean[] found = {false};
         final ArrayList<Map<String, Object>> noteContent = new ArrayList<>();
