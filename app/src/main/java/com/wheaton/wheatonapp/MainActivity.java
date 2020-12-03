@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.draggablesticky, null);
+        final View popupView = inflater.inflate(R.layout.draggablesticky, null);
 
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -279,16 +279,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-                        dx = (int) event.getX();
-                        dy = (int) event.getY();
+                        dx = (int) (xp - event.getRawX());
+                        dy = (int) (yp - event.getRawY());
                         break;
-
                     case MotionEvent.ACTION_MOVE:
-                        xp = (int) event.getRawX();
-                        yp = (int) event.getRawY();
-                        sides = (xp - dx);
-                        topBot = (yp - dy);
-                        popupWindow.update(sides, topBot, -1, -1, true);
+                        xp = (int) (event.getRawX() + dx);
+                        yp = (int) (event.getRawY() + dy);
+                        popupWindow.update(xp, yp, -1, -1);
                         break;
                 }
                 return true;
