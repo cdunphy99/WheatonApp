@@ -111,6 +111,10 @@ public class FragmentPopUp extends Fragment {
         // inflate the layout of the popup window
         LayoutInflater inflater = (LayoutInflater) LayoutInflater.from(getContext());
         final View popupView = inflater.inflate(R.layout.draggablesticky, null);
+        TextView titleTV = popupView.findViewById(R.id.dragtitle);
+        TextView messageTV = popupView.findViewById(R.id.dragmessage);
+        titleTV.setText(Sticky.getTitle());
+        messageTV.setText(Sticky.getMsg());
 
         // create the popup window
         int width = LinearLayout.LayoutParams.WRAP_CONTENT;
