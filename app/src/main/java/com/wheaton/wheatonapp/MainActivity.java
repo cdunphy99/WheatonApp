@@ -273,8 +273,6 @@ public class MainActivity extends AppCompatActivity {
             int dy;
             int xp;
             int yp;
-            int sides;
-            int topBot;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()) {
