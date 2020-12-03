@@ -62,13 +62,7 @@ public class stickyNotePopUpActivity extends AppCompatActivity {
 
         getWindow().setAttributes(params);
 
-        Button makeDraggableButton = findViewById(R.id.makeDraggable);
-        makeDraggableButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onButtonShowPopupWindowClick(v.getRootView());
-            }
-        });
+
 
 
     }
@@ -90,46 +84,5 @@ public class stickyNotePopUpActivity extends AppCompatActivity {
 
 
 
-    public void onButtonShowPopupWindowClick(View view) {
-        Toast.makeText(this, "the fuck", Toast.LENGTH_SHORT).show();
-        this.Close(view.getRootView());
-        // inflate the layout of the popup window
-        LayoutInflater inflater = (LayoutInflater)
-                getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View popupView = inflater.inflate(R.layout.draggablesticky, null);
 
-        // create the popup window
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-        boolean focusable = true; // lets taps outside the popup also dismiss it
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        // show the popup window
-        // which view you pass in doesn't matter, it is only used for the window tolken
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-        // dismiss the popup window when touched
-        popupView.setOnTouchListener(new View.OnTouchListener() {
-            int dx;
-            int dy;
-            int xp;
-            int yp;
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        dx = (int) (xp - event.getRawX());
-                        dy = (int) (yp - event.getRawY());
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        xp = (int) (event.getRawX() + dx);
-                        yp = (int) (event.getRawY() + dy);
-                        popupWindow.update(xp, yp, -1, -1);
-                        break;
-                }
-                return true;
-            }
-        });
-    }
 }
