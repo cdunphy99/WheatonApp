@@ -19,7 +19,12 @@ public class customWeb extends WebViewClient {
     MainActivity Main;
     String currURL;
 
-
+    //You can use pushData, pullData, and deleteData by calling like this: 'Main.pullData()'
+    //Try ArrayList<Map<String, Object>> arrayName = Main.pullData() to create an arraylist
+    //and add all Document objects to it from firestore. Document objects contain all data
+    //for a note including url, text, name, associated user id, and timestamp.
+    //Use arrayName.get(INDEX).getData() to retrieve the data. Check the Logcat logs to see
+    //what this data looks like. It is logged everytime pullData is called.
 
     public customWeb(recylerAdapter adapter, LinearLayoutManager HorizontalLayout, RecyclerView recyclerView, MainActivity m) {
         super();
@@ -38,7 +43,6 @@ public class customWeb extends WebViewClient {
         HorizontalLayoutMain = new LinearLayoutManager(Main, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewMain.setLayoutManager(HorizontalLayoutMain);
         recyclerViewMain.setAdapter(adapterMain);
-
     }
 
     public void AddItemsToRecyclerViewArrayList() {

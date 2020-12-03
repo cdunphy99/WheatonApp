@@ -17,12 +17,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
+
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -35,10 +33,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -66,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
     String myId = "1";
 
-    protected void pushData(String name, String text){
+    public void pushData(String name, String text, String url){
         //Description:
         //This function pushes data to the Firebase database ("Cloud Firestore") in the form of
         //a Map containing the name of the note, the content or "text" of the note, and
@@ -87,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         note.put("text", text);
         note.put("time", timeStamp);
         note.put("id", myId);
+        note.put("url", url);
 
         db.collection("notes")
                 .add(note)
@@ -107,21 +104,22 @@ public class MainActivity extends AppCompatActivity {
 
     boolean subFABsVisible = false;
 
-    protected boolean pullData(){
+    public ArrayList<Map<String, Object>> pullData(){
         //Description:
         //This function pulls all notes from Firebase that have the the Id found in sharedPrefs.
         //SharedPrefs will contain this instance of the app's unique Id (and if it contains nothing
         //it will be updated to contain a random number that is not already used as an id in
-        //Firebase. For the time being the function simply prints each note to Logcat for testing
-        //purposes, but it will be updated to send all notes to an array for display in the app's
-        //main activity. This function returns a boolean that will be true when any notes are found
-        //with this app's Id. The function is also used to test if an Id is already used in Firebase.
+        //Firebase. The function returns an array of Maps containing the Document data from firestore.
+        //It will return null if an error occurs and will log the error with the tag 'firestore'.
         //Usage:
-        //pullData();
+        //ArrayList<Map<String, Object>> arrayName = pullData();
         //or
-        //if(pullData()){}
+        //if(pullData() != null){ CODE }
+
+        Log.d("firestore", "Began firestore call.");
 
         final boolean[] found = {false};
+        final ArrayList<Map<String, Object>> noteContent = new ArrayList<>();
 
         db.collection("notes")
                 .whereEqualTo("id", myId)
@@ -132,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("firestore", document.getId() + " => " + document.getData());
+                                noteContent.add(document.getData());
                             }
                             found[0] = true;
                         } else {
@@ -141,9 +140,35 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         if(found[0]){
-            return true;
+            return noteContent;
         }
-        else return false;
+        else return null;
+    }
+
+    public void deleteData(String documentId){
+        //Description:
+        //This function will take a Document ID, which can be found in the Document objects
+        //in the array returned by pullData, and delete that particular document from the
+        //firestore database. It does not return anything.
+        //Usage:
+        //deleteData("Document ID String")
+        //Example:
+        //deleteData("agzJJe3lh7GpUpgFYMwe")  <--- This is what Document IDs look like
+
+        db.collection("notes").document(documentId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("firestore", "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("firestore", "Error deleting document", e);
+                    }
+                });
     }
 
 
@@ -159,14 +184,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d("Main", "Yo ");
 
+        SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
+
+        myId = prefs.getString("wheaton_myId", "DEFAULT_VALUE");
+
         // FAB code
         FloatingActionButton mainFAB = findViewById(R.id.mainFAB);
         View view;
         final FloatingActionButton miniFAB1 = findViewById(R.id.miniFAB1);
         final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
 
-
-        SharedPreferences prefs = this.getPreferences(Context.MODE_PRIVATE);
+        ArrayList<Map<String, Object>> testArray = pullData();
 
         String retId = prefs.getString("wheaton_myId", "none");
         Log.d("idWorks2", retId);
@@ -177,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
             Random rand = new Random();
             String sender = String.valueOf(rand.nextInt(999999999));
 
-            if(!pullData()){
+            if(pullData() == null){
                 sender = String.valueOf(rand.nextInt(999999999));
                 Log.d("idWorksrandom", sender);
             }
@@ -351,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
         WebView web = (WebView) findViewById(R.id.webView);
         webView.loadUrl("https://www." + addressBar.getText().toString());
     }
+
 
 
 
