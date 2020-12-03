@@ -65,6 +65,17 @@ public class FragmentPopUp extends Fragment {
         }
     };
 
+    View.OnClickListener dragListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view){
+            activity.findViewById(R.id.webView).setFocusable(true);
+            activity.findViewById(R.id.webView).setFocusableInTouchMode(true);
+            FrameLayout f = (FrameLayout) activity.findViewById(R.id.stickyView);
+            f.removeAllViews();
+
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -79,7 +90,8 @@ public class FragmentPopUp extends Fragment {
         Save.setOnClickListener(saveButtonListener);
         Button Close = (Button) rootView.findViewById(R.id.buttonClose);
         Close.setOnClickListener(closeButtonListener);
-
+        Button Draggable = rootView.findViewById(R.id.makeDraggable);
+        Draggable.setOnClickListener(dragListener);
 
 
 
@@ -89,7 +101,6 @@ public class FragmentPopUp extends Fragment {
     //Sticky Note Pop Up Functions
     public void Close(View view){
     }
-
 
 
 }

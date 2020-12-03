@@ -56,4 +56,12 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonClose" />
 
+    <Button
+        android:id="@+id/makeDraggable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@+id/buttonClose"
+        app:layout_constraintStart_toStartOf="@+id/buttonClose" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

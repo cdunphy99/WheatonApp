@@ -3,10 +3,14 @@ package com.wheaton.wheatonapp;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -16,9 +20,11 @@ import androidx.appcompat.app.AppCompatActivity;
 public class DraggableSticky extends Activity {
     String title;
     String message;
-    public DraggableSticky(String title, String message) {
+    View view;
+    public DraggableSticky(String title, String message, View view) {
         this.title = title;
         this.message = message;
+        this.view = view;
 //        TextView dragtitle = findViewById(R.id.dragtitle);
 //        TextView dragmessage = findViewById(R.id.dragmessage);
 //
@@ -41,4 +47,6 @@ public class DraggableSticky extends Activity {
 
 
     }
+
+
 }
