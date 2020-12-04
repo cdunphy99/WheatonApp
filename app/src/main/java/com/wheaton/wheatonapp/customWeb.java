@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class customWeb extends WebViewClient {
 
@@ -45,9 +46,24 @@ public class customWeb extends WebViewClient {
         recyclerViewMain.setAdapter(adapterMain);
     }
 
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+
+        //Main.deleteData(); //get these from from source
+        /*for (int i = 0; i < source.size(); i++){
+            StickyNoteObject currSticky = source.get(i);
+            Main.pushData(currSticky.getTitle(),currSticky.getMsg(),currURL);
+        }*/
+    }
+
     public void AddItemsToRecyclerViewArrayList() {
         // Adding items to ArrayList
         source = new ArrayList<>();
+        ArrayList<Map<String, Object>> data = Main.pullData();
+        for(int i = 0; i < data.size(); i++){
+            data.get(i).get(currURL);
+        }
         source.add(new StickyNoteObject("StickyNEW1", "Hello1"));
         source.add(new StickyNoteObject("StickyNEW2", "Hello2"));
         source.add(new StickyNoteObject("StickyNEW3", "Hello3"));
