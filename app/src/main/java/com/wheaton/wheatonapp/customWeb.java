@@ -1,12 +1,21 @@
 package com.wheaton.wheatonapp;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -48,10 +57,29 @@ public class customWeb extends WebViewClient {
     public void AddItemsToRecyclerViewArrayList() {
         // Adding items to ArrayList
         source = new ArrayList<>();
-        source.add(new StickyNoteObject("StickyNEW1", "Hello1"));
-        source.add(new StickyNoteObject("StickyNEW2", "Hello2"));
-        source.add(new StickyNoteObject("StickyNEW3", "Hello3"));
-        source.add(new StickyNoteObject("StickyNEW3", currURL));
+        final ArrayList<DocumentSnapshot> noteContent = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("notes")
+                .whereEqualTo("id", Main.myId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("firestore", document.getId() + " => " + document.getData());
+                                noteContent.add(document);
+
+                                source.add(new StickyNoteObject((String) document.get("name"), (String) document.get("text"), document.getId()));
+                            }
+                        } else {
+                            Log.d("firestore", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
+
     }
 }
 

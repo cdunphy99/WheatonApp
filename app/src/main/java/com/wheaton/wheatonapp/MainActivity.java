@@ -293,9 +293,24 @@ public class MainActivity extends AppCompatActivity {
     public void AddItemsToRecyclerViewArrayList() {
         // Adding items to ArrayList
         source = new ArrayList<>();
-        source.add(new StickyNoteObject("Sticky1", "Hello1"));
-        source.add(new StickyNoteObject("Sticky2", "Hello2"));
-        source.add(new StickyNoteObject("Sticky3", "Hello3"));
+
+        db.collection("notes")
+                .whereEqualTo("id", myId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("firestore", document.getId() + " => " + document.getData());
+                                source.add(new StickyNoteObject((String) document.get("name"), (String) document.get("text"), document.getId()));
+                            }
+                        } else {
+                            Log.d("firestore", "Error getting documents: ", task.getException());
+                        }
+
+                    }
+                });
     }
 
 
