@@ -65,6 +65,10 @@ public class StickyNoteObject implements Parcelable {
         Title = title;
     }
 
+    public void setDocId(String docId) {
+        this.docId = docId;
+    }
+
     @Override
     public int describeContents() {
         return 0;

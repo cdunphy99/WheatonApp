@@ -48,6 +48,9 @@ public class customWeb extends WebViewClient {
         super.onPageStarted(view, url, favicon);
         currURL = url;
         AddItemsToRecyclerViewArrayList();
+        if (source.isEmpty()){
+            source.add(new StickyNoteObject("EMPTY", "EMPTY"));
+        }
         adapterMain = new recylerAdapter(source);
         HorizontalLayoutMain = new LinearLayoutManager(Main, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewMain.setLayoutManager(HorizontalLayoutMain);
