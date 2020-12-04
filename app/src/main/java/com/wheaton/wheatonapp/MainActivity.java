@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("firestore", "Began firestore call.");
 
         final boolean[] found = {false};
-        final ArrayList<Map<String, Object>> noteContent = new ArrayList<>();
+        final ArrayList<DocumentSnapshot> noteContent = new ArrayList<>();
 
         db.collection("notes")
                 .whereEqualTo("id", myId)
