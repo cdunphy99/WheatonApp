@@ -291,6 +291,10 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        if (source.isEmpty()){
+            source.add(new StickyNoteObject("EMPTY", "EMPTY"));
+        }
     }
 
 
@@ -321,8 +325,12 @@ public class MainActivity extends AppCompatActivity {
     public void add(View view){
         Toast.makeText(getApplicationContext(), "YOU CLICKED ADD", Toast.LENGTH_SHORT).show();
         source.add(new StickyNoteObject("New Sticky", "New Message"));
-        if (source.get(0).getTitle().equals("EMPTY")){
-            source.remove(1);
+        int indexE = -1;
+        for (int i = 0; i < source.size(); i++){
+            if(source.get(i).getTitle().equals("EMPTY")){
+                source.remove(i);
+                break;
+            }
         }
         adapter = new recylerAdapter(source);
         HorizontalLayout = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
@@ -330,6 +338,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+
 
     public void toggleAddressBar(){
         EditText addressBar = (EditText) findViewById(R.id.addressBar);
