@@ -122,7 +122,10 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("firestore", document.getId() + " => " + document.getData());
-                                noteContent.add(document.getData());
+                                noteContent.add(document);
+
+                                //Something like this:
+                                //AddItemsToRecyclerViewArrayList(new StickyNoteObject(document.getData, "Hello1"));
                             }
                             found[0] = true;
                         } else {
