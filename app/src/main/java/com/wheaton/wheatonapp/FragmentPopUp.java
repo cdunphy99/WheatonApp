@@ -117,7 +117,7 @@ public class FragmentPopUp extends Fragment {
             //note.put("url", cu);
 
 
-            if(Sticky.getDocId() == null){
+            if(Sticky.getDocId() == "xxx"){
                 db.collection("notes")
                         .add(note)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -172,6 +172,10 @@ public class FragmentPopUp extends Fragment {
         public void onClick(View view){
             if(Sticky.getDocId() != "xxx"){
                 deleteData(Sticky.getDocId());
+            }
+            if (list.size() == 1){
+                list.add(new StickyNoteObject("EMPTY", "EMPTY"));
+                activity.findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
             }
             list.remove(Sticky);
             adapter.notifyDataSetChanged();
