@@ -75,7 +75,7 @@ public class FragmentPopUp extends Fragment {
             EditText tE = (EditText) rootView.findViewById(R.id.textViewTitle);
             EditText mE = (EditText) rootView.findViewById(R.id.textViewMsg);
             Sticky.setTitle(tE.getText().toString());
-            Sticky.setMsg(tE.getText().toString());
+            Sticky.setMsg(mE.getText().toString());
             list.set(p,Sticky);
 
             Map<String, Object> note = new HashMap<>();
