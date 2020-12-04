@@ -86,6 +86,14 @@ public class customWeb extends WebViewClient {
                     }
                 });
 
+        int i = 0;
+        while (i < source.size()){
+            if (!source.get(i).getUrl().equals(currURL)){
+                source.remove(i);
+            }else {
+                i++;
+            }
+        }
     }
 }
 

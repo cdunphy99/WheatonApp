@@ -138,6 +138,8 @@ public class FragmentPopUp extends Fragment {
                 editData(Sticky.getDocId(), tE.getText().toString(), mE.getText().toString());
             }
 
+            adapter.notifyDataSetChanged();
+
         }
     };
 
@@ -172,6 +174,11 @@ public class FragmentPopUp extends Fragment {
                 deleteData(Sticky.getDocId());
             }
             list.remove(Sticky);
+            adapter.notifyDataSetChanged();
+            activity.findViewById(R.id.webView).setFocusable(true);
+            activity.findViewById(R.id.webView).setFocusableInTouchMode(true);
+            FrameLayout f = (FrameLayout) activity.findViewById(R.id.stickyView);
+            f.removeAllViews();
             adapter.notifyDataSetChanged();
         }
     };

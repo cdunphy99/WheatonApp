@@ -337,7 +337,7 @@ public class MainActivity extends AppCompatActivity {
     public void goToURL(View view){
         EditText addressBar = (EditText) findViewById(R.id.addressBar);
         WebView web = (WebView) findViewById(R.id.webView);
-        webView.loadUrl("https://www." + addressBar.getText().toString());
+        webView.loadUrl("https://" + addressBar.getText().toString());
     }
 
 
