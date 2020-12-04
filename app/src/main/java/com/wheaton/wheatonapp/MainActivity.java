@@ -123,11 +123,6 @@ public class MainActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("firestore", document.getId() + " => " + document.getData());
                                 noteContent.add(document);
-
-                                //Something like this:
-                                //AddItemsToRecyclerViewArrayList(new StickyNoteObject(document.get("name"), document.get("text")));
-                                //Items inside Documents can be accessed with .get("name of the value") like .get("url")
-                                //Id is gotten by doing .getId()
                             }
                             found[0] = true;
                         } else {
