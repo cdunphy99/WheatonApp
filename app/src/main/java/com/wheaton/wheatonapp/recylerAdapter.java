@@ -9,6 +9,8 @@ import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
@@ -22,6 +24,7 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
     // List with String type
     private List<StickyNoteObject> list;
     Context context;
+    ViewGroup parent;
 
     // View Holder class which
     // extends RecyclerView.ViewHolder
@@ -54,12 +57,12 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
     // with the inflation of the card layout
     // as an item for the RecyclerView.
     @Override
-    public MyView onCreateViewHolder(ViewGroup parent,
+    public MyView onCreateViewHolder(ViewGroup parentin,
                                      int viewType)
     {
-
         // Inflate item.xml using LayoutInflator
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.sticky_card_view, parent, false);
+        View itemView = LayoutInflater.from(parentin.getContext()).inflate(R.layout.sticky_card_view, parentin, false);
+        parent = parentin;
 
 
         // return itemView
@@ -82,14 +85,24 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
             @Override
             public void onClick(View view) {
                 StickyNoteObject stickyOut = (StickyNoteObject) list.get(position);
-                Log.d("cardView", "Yo " + stickyOut.getTitle());
+                /*Log.d("cardView", "Yo " + stickyOut.getTitle());
                 Intent i = new Intent(context, stickyNotePopUpActivity.class);
                 i.putExtra("Title", stickyOut.getTitle());
                 i.putExtra("Sticky", stickyOut);
                 i.putExtra("P",position);
                 i.putParcelableArrayListExtra("List", (ArrayList<StickyNoteObject>) list);
 
-                context.startActivity(i);
+                context.startActivity(i);*/
+
+                //notifyDataSetChanged();
+
+                AppCompatActivity activity = (AppCompatActivity) view.getContext();
+                activity.findViewById(R.id.webView).setFocusable(false);
+                activity.findViewById(R.id.webView).setFocusableInTouchMode(false);
+                FragmentPopUp fragment = new FragmentPopUp(stickyOut, list, position, activity, recylerAdapter.this);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.stickyView, fragment).addToBackStack(null).commit();
+
+
             }
         });
     }

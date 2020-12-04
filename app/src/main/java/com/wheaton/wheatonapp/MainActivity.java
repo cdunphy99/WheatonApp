@@ -2,18 +2,28 @@ package com.wheaton.wheatonapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ActionBar;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -259,7 +269,15 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webView.setWebViewClient(new customWeb(adapter,HorizontalLayout,recyclerView,MainActivity.this));
         webView.loadUrl("https://www.google.com");
+
+
+
+
+
     }
+
+
+
 
     public void AddItemsToRecyclerViewArrayList() {
         // Adding items to ArrayList
@@ -320,6 +338,7 @@ public class MainActivity extends AppCompatActivity {
         WebView web = (WebView) findViewById(R.id.webView);
         webView.loadUrl("https://www." + addressBar.getText().toString());
     }
+
 
 
 
