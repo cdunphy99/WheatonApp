@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
         View view;
         final FloatingActionButton miniFAB1 = findViewById(R.id.miniFAB1);
         final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
-        
+
         String retId = prefs.getString("wheaton_myId", "none");
         Log.d("idWorks2", retId);
 
@@ -281,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d("firestore", document.getId() + " => " + document.getData());
-                                source.add(new StickyNoteObject((String) document.get("name"), (String) document.get("text"), document.getId()));
+                                source.add(new StickyNoteObject((String) document.get("name"), (String) document.get("text"), document.getId(), (String) document.get("url")));
                             }
                         } else {
                             Log.d("firestore", "Error getting documents: ", task.getException());

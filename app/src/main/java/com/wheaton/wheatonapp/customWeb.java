@@ -71,7 +71,7 @@ public class customWeb extends WebViewClient {
                                 Log.d("firestore", document.getId() + " => " + document.getData());
                                 noteContent.add(document);
 
-                                source.add(new StickyNoteObject((String) document.get("name"), (String) document.get("text"), document.getId()));
+                                source.add(new StickyNoteObject((String) document.get("name"), (String) document.get("text"), document.getId(), (String) document.get("url")));
                             }
                         } else {
                             Log.d("firestore", "Error getting documents: ", task.getException());
