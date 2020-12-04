@@ -16,7 +16,7 @@ import java.util.List;
 public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> {
 
     // List with String type
-    private List<StickyNoteObject> list;
+    private final List<StickyNoteObject> list;
     Context context;
     ViewGroup parent;
 
@@ -30,20 +30,18 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
 
         // parameterised constructor for View Holder class
         // which takes the view as a parameter
-        public MyView(View view)
-        {
+        public MyView(View view) {
             super(view);
 
             // initialise TextView with id
-            textView = (TextView)view
+            textView = (TextView) view
                     .findViewById(R.id.textview);
         }
     }
 
     // Constructor for adapter class
     // which takes a list of String type
-    public recylerAdapter(List<StickyNoteObject> horizontalList)
-    {
+    public recylerAdapter(List<StickyNoteObject> horizontalList) {
         this.list = horizontalList;
     }
 
@@ -52,8 +50,7 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
     // as an item for the RecyclerView.
     @Override
     public MyView onCreateViewHolder(ViewGroup parentin,
-                                     int viewType)
-    {
+                                     int viewType) {
         // Inflate item.xml using LayoutInflator
         View itemView = LayoutInflater.from(parentin.getContext()).inflate(R.layout.sticky_card_view, parentin, false);
         parent = parentin;
@@ -105,8 +102,7 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
     // Override getItemCount which Returns
     // the length of the RecyclerView.
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return list.size();
     }
 }

@@ -9,16 +9,17 @@ public class StickyNoteObject implements Parcelable {
     private String docId;
     private String url;
 
-    public StickyNoteObject(){
+    public StickyNoteObject() {
         setTitle("");
         setMsg("");
     }
-    public StickyNoteObject(String t, String m){
+
+    public StickyNoteObject(String t, String m) {
         setTitle(t);
         setMsg(m);
     }
 
-    public StickyNoteObject(String t, String m, String id, String site){
+    public StickyNoteObject(String t, String m, String id, String site) {
         setTitle(t);
         setMsg(m);
         docId = id;
@@ -46,12 +47,15 @@ public class StickyNoteObject implements Parcelable {
     public String getMsg() {
         return Msg;
     }
+
     public String getTitle() {
         return Title;
     }
+
     public String getDocId() {
         return docId;
     }
+
     public String getUrl() {
         return url;
     }

@@ -55,8 +55,6 @@ public class stickyNotePopUpActivity extends AppCompatActivity {
         getWindow().setAttributes(params);
 
 
-
-
     }
 
     //Sticky Note Pop Up Functions
@@ -73,8 +71,6 @@ public class stickyNotePopUpActivity extends AppCompatActivity {
         list.set(p, Sticky);
         list.remove(p);
     }
-
-
 
 
 }

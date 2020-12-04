@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String myId = "1";
 
-    public void pushData(String name, String text, String url){
+    public void pushData(String name, String text, String url) {
         //Description:
         //This function pushes data to the Firebase database ("Cloud Firestore") in the form of
         //a Map containing the name of the note, the content or "text" of the note, and
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean subFABsVisible = false;
 
-    public ArrayList<DocumentSnapshot> pullData(){
+    public ArrayList<DocumentSnapshot> pullData() {
         //Description:
         //This function pulls all notes from Firebase that have the the Id found in sharedPrefs.
         //SharedPrefs will contain this instance of the app's unique Id (and if it contains nothing
@@ -132,10 +132,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        if(found[0]){
+        if (found[0]) {
             return noteContent;
-        }
-        else return null;
+        } else return null;
     }
 
 
@@ -164,13 +163,13 @@ public class MainActivity extends AppCompatActivity {
         String retId = prefs.getString("wheaton_myId", "none");
         Log.d("idWorks2", retId);
 
-        if(retId.equals("none")){
+        if (retId.equals("none")) {
             Log.d("idWorks", "equals");
 
             Random rand = new Random();
             String sender = String.valueOf(rand.nextInt(999999999));
 
-            if(pullData() == null){
+            if (pullData() == null) {
                 sender = String.valueOf(rand.nextInt(999999999));
                 Log.d("idWorksrandom", sender);
             }
@@ -191,12 +190,11 @@ public class MainActivity extends AppCompatActivity {
                 Context context;
                 CharSequence text;
                 // I will look into transitions to make this visibility change look "smooth" to the user. right now it should look instant.
-                if(subFABsVisible) {
+                if (subFABsVisible) {
                     miniFAB1.hide();
                     miniFAB2.hide();
                     subFABsVisible = false;
-                }
-                else{
+                } else {
                     miniFAB1.show();
                     miniFAB2.show();
                     subFABsVisible = true;
@@ -217,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         RecyclerViewLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(RecyclerViewLayoutManager);
         AddItemsToRecyclerViewArrayList();
@@ -227,11 +225,9 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         webView = findViewById(R.id.webView);
-        webView.setWebViewClient(new customWeb(adapter,HorizontalLayout,recyclerView,MainActivity.this));
+        webView.setWebViewClient(new customWeb(adapter, HorizontalLayout, recyclerView, MainActivity.this));
         webView.loadUrl("https://www.google.com");
     }
-
-
 
 
     public void AddItemsToRecyclerViewArrayList() {
@@ -256,34 +252,34 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        if (source.isEmpty()){
+        if (source.isEmpty()) {
             source.add(new StickyNoteObject("EMPTY", "EMPTY"));
         }
     }
 
 
     public void click(View view) {
-        TextView t = (TextView) findViewById (R.id.textview);
+        TextView t = (TextView) findViewById(R.id.textview);
         Toast.makeText(getApplicationContext(), "You have pressed a sticky.".concat(t.getText().toString()), Toast.LENGTH_SHORT).show();
     }
 
-    public void hide_showCardView(){
+    public void hide_showCardView() {
         RecyclerView rview = (RecyclerView) findViewById(R.id.recyclerview);
         Button addStickyButton = (Button) findViewById(R.id.addStickyButton);
 
         //LinearLayout LL = (LinearLayout) findViewById(R.id.rView);
-        if(cardView_Shown){
+        if (cardView_Shown) {
             rview.setVisibility(View.GONE);
             addStickyButton.setVisibility(View.GONE);
             cardView_Shown = false;
         } else {
-            if(addressBar_Shown){
+            if (addressBar_Shown) {
                 toggleAddressBar();
             }
             rview.setVisibility(View.VISIBLE);
             addStickyButton.setVisibility(View.VISIBLE);
-            for (int i = 0; i < source.size(); i++){
-                if(source.get(i).getTitle().equals("EMPTY")){
+            for (int i = 0; i < source.size(); i++) {
+                if (source.get(i).getTitle().equals("EMPTY")) {
                     findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
                     break;
                 }
@@ -292,14 +288,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void add(View view){
+    public void add(View view) {
         findViewById(R.id.recyclerview).setVisibility(View.VISIBLE);
         webView = findViewById(R.id.webView);
 
         source.add(new StickyNoteObject("New Sticky", "New Message", "xxx", webView.getUrl()));
         int indexE = -1;
-        for (int i = 0; i < source.size(); i++){
-            if(source.get(i).getTitle().equals("EMPTY")){
+        for (int i = 0; i < source.size(); i++) {
+            if (source.get(i).getTitle().equals("EMPTY")) {
                 source.remove(i);
                 break;
             }
@@ -312,17 +308,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-    public void toggleAddressBar(){
+    public void toggleAddressBar() {
         EditText addressBar = (EditText) findViewById(R.id.addressBar);
         Button goButton = (Button) findViewById(R.id.goButton);
-        if(addressBar_Shown) {
+        if (addressBar_Shown) {
             addressBar.setVisibility(View.GONE);
             goButton.setVisibility(View.GONE);
             addressBar_Shown = false;
-        }
-        else{
-            if(cardView_Shown) {
+        } else {
+            if (cardView_Shown) {
                 hide_showCardView();
             }
             addressBar.setVisibility(View.VISIBLE);
@@ -331,13 +325,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void goToURL(View view){
+    public void goToURL(View view) {
         EditText addressBar = (EditText) findViewById(R.id.addressBar);
         WebView web = (WebView) findViewById(R.id.webView);
         webView.loadUrl("https://" + addressBar.getText().toString());
     }
-
-
 
 
 }

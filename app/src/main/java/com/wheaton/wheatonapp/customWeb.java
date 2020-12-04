@@ -48,7 +48,7 @@ public class customWeb extends WebViewClient {
         super.onPageStarted(view, url, favicon);
         currURL = url;
         AddItemsToRecyclerViewArrayList();
-        if (source.isEmpty()){
+        if (source.isEmpty()) {
             source.add(new StickyNoteObject("EMPTY", "EMPTY"));
             Main.findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
         }
@@ -66,7 +66,7 @@ public class customWeb extends WebViewClient {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         db.collection("notes")
-                .whereEqualTo("id", Main.myId)
+                .whereEqualTo("id", MainActivity.myId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -87,10 +87,10 @@ public class customWeb extends WebViewClient {
                 });
 
         int i = 0;
-        while (i < source.size()){
-            if (!source.get(i).getUrl().equals(currURL)){
+        while (i < source.size()) {
+            if (!source.get(i).getUrl().equals(currURL)) {
                 source.remove(i);
-            }else {
+            } else {
                 i++;
             }
         }

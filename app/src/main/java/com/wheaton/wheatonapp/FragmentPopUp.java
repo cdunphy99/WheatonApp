@@ -35,11 +35,11 @@ import java.util.Map;
 public class FragmentPopUp extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public void editData(String docId, String name, String text) {
-        if(!(docId == null)){
+        if (!(docId == null)) {
             db.collection("notes").document(docId).update("name", name, "text", text);
-        }
-        else{
+        } else {
             Log.d("firestore", "docId was blank in editData");
         }
     }
@@ -47,7 +47,7 @@ public class FragmentPopUp extends Fragment {
     public void editData(String name, String text) {
     }
 
-    public void deleteData(String documentId){
+    public void deleteData(String documentId) {
         //Description:
         //This function will take a Document ID, which can be found in the Document objects
         //in the array returned by pullData, and delete that particular document from the
@@ -82,16 +82,15 @@ public class FragmentPopUp extends Fragment {
     recylerAdapter adapter;
 
 
-
     public FragmentPopUp(StickyNoteObject StickyIn, List<StickyNoteObject> listIn, int pIn, AppCompatActivity activityIn, recylerAdapter r) {
         Sticky = StickyIn;
         list = listIn;
         p = pIn;
-        activity= activityIn;
+        activity = activityIn;
         adapter = r;
     }
 
-    View.OnClickListener saveButtonListener = new View.OnClickListener(){
+    View.OnClickListener saveButtonListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View view) {
@@ -99,7 +98,7 @@ public class FragmentPopUp extends Fragment {
             EditText mE = (EditText) rootView.findViewById(R.id.textViewMsg);
             Sticky.setTitle(tE.getText().toString());
             Sticky.setMsg(mE.getText().toString());
-            list.set(p,Sticky);
+            list.set(p, Sticky);
 
             Map<String, Object> note = new HashMap<>();
 
@@ -116,7 +115,7 @@ public class FragmentPopUp extends Fragment {
             note.put("url", web.getUrl());
 
 
-            if(Sticky.getDocId() == "xxx"){
+            if (Sticky.getDocId() == "xxx") {
                 db.collection("notes")
                         .add(note)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -132,8 +131,7 @@ public class FragmentPopUp extends Fragment {
                                 Log.w("firestore", "Error adding note to firestore", e);
                             }
                         });
-            }
-            else{
+            } else {
                 editData(Sticky.getDocId(), tE.getText().toString(), mE.getText().toString());
             }
 
@@ -142,7 +140,7 @@ public class FragmentPopUp extends Fragment {
         }
     };
 
-    View.OnClickListener closeButtonListener = new View.OnClickListener(){
+    View.OnClickListener closeButtonListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View view) {
@@ -156,7 +154,7 @@ public class FragmentPopUp extends Fragment {
 
     View.OnClickListener dragListener = new View.OnClickListener() {
         @Override
-        public void onClick(View view){
+        public void onClick(View view) {
             activity.findViewById(R.id.webView).setFocusable(true);
             activity.findViewById(R.id.webView).setFocusableInTouchMode(true);
             FrameLayout f = (FrameLayout) activity.findViewById(R.id.stickyView);
@@ -168,11 +166,11 @@ public class FragmentPopUp extends Fragment {
 
     View.OnClickListener removeSticky = new View.OnClickListener() {
         @Override
-        public void onClick(View view){
-            if(Sticky.getDocId() != "xxx"){
+        public void onClick(View view) {
+            if (Sticky.getDocId() != "xxx") {
                 deleteData(Sticky.getDocId());
             }
-            if (list.size() == 1){
+            if (list.size() == 1) {
                 list.add(new StickyNoteObject("EMPTY", "EMPTY"));
                 activity.findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
             }
@@ -210,8 +208,9 @@ public class FragmentPopUp extends Fragment {
     }
 
     //Sticky Note Pop Up Functions
-    public void Close(View view){
+    public void Close(View view) {
     }
+
     public void onButtonShowPopupWindowClick(View view) {
         this.Close(view.getRootView());
         // inflate the layout of the popup window
