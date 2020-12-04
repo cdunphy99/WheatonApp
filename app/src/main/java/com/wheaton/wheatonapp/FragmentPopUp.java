@@ -23,9 +23,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.List;
 
+
 public class FragmentPopUp extends Fragment {
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public void editData(String docId, String name, String text) {
+        db.collection("notes").document(docId).update("name", name, "text", text);
+    }
 
     public StickyNoteObject Sticky;
     List<StickyNoteObject> list;
@@ -53,7 +61,7 @@ public class FragmentPopUp extends Fragment {
             Sticky.setTitle(tE.getText().toString());
             Sticky.setMsg(mE.getText().toString());
             list.set(p,Sticky);
-
+            editData(Sticky.getDocId(), tE.getText().toString(), mE.getText().toString());
         }
     };
 
