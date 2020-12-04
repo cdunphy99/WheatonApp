@@ -286,6 +286,12 @@ public class MainActivity extends AppCompatActivity {
             }
             rview.setVisibility(View.VISIBLE);
             addStickyButton.setVisibility(View.VISIBLE);
+            for (int i = 0; i < source.size(); i++){
+                if(source.get(i).getTitle().equals("EMPTY")){
+                    findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
+                    break;
+                }
+            }
             cardView_Shown = true;
         }
     }
