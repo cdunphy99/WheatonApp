@@ -50,7 +50,9 @@ public class customWeb extends WebViewClient {
         AddItemsToRecyclerViewArrayList();
         if (source.isEmpty()){
             source.add(new StickyNoteObject("EMPTY", "EMPTY"));
+            Main.findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
         }
+
         adapterMain = new recylerAdapter(source);
         HorizontalLayoutMain = new LinearLayoutManager(Main, LinearLayoutManager.HORIZONTAL, false);
         recyclerViewMain.setLayoutManager(HorizontalLayoutMain);
