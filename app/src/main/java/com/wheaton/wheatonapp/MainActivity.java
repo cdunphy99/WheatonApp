@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -63,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
         //in our Google Firebase console page.
         //Usage:
         //pushdata("Grocery List", "eggs, ham, orange juice");
-        //May be changed later to store a json encoded string of data to support markdown.
 
         Map<String, Object> note = new HashMap<>();
 
