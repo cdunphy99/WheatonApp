@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean subFABsVisible = false;
 
-    public ArrayList<Map<String, Object>> pullData(){
+    public ArrayList<DocumentSnapshot> pullData(){
         //Description:
         //This function pulls all notes from Firebase that have the the Id found in sharedPrefs.
         //SharedPrefs will contain this instance of the app's unique Id (and if it contains nothing
