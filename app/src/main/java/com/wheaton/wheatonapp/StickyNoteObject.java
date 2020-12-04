@@ -17,6 +17,12 @@ public class StickyNoteObject implements Parcelable {
         setMsg(m);
     }
 
+    public StickyNoteObject(String t, String m, String id){
+        setTitle(t);
+        setMsg(m);
+        docId = id;
+    }
+
     protected StickyNoteObject(Parcel in) {
         Title = in.readString();
         Msg = in.readString();
