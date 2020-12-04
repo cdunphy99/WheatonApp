@@ -321,7 +321,17 @@ public class MainActivity extends AppCompatActivity {
             }
             addressBar.setVisibility(View.VISIBLE);
             goButton.setVisibility(View.VISIBLE);
+
             addressBar_Shown = true;
+
+            for (int i = 0; i < source.size(); i++) {
+                if (source.get(i).getTitle().equals("EMPTY")) {
+                    findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
+                    break;
+                }
+
+            }
+
         }
     }
 
