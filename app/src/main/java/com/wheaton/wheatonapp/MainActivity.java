@@ -9,12 +9,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     View ChildView;
     int RecyclerViewItemPosition;
 
-    String myId = "1";
+    public static String myId = "1";
 
     public void pushData(String name, String text, String url){
         //Description:
@@ -289,6 +291,10 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        if (source.isEmpty()){
+            source.add(new StickyNoteObject("EMPTY", "EMPTY"));
+        }
     }
 
 
@@ -300,6 +306,8 @@ public class MainActivity extends AppCompatActivity {
     public void hide_showCardView(){
         RecyclerView rview = (RecyclerView) findViewById(R.id.recyclerview);
         Button addStickyButton = (Button) findViewById(R.id.addStickyButton);
+
+        //LinearLayout LL = (LinearLayout) findViewById(R.id.rView);
         if(cardView_Shown){
             rview.setVisibility(View.GONE);
             addStickyButton.setVisibility(View.GONE);
@@ -315,9 +323,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void add(View view){
+        Toast.makeText(getApplicationContext(), "YOU CLICKED ADD", Toast.LENGTH_SHORT).show();
         source.add(new StickyNoteObject("New Sticky", "New Message"));
+        int indexE = -1;
+        for (int i = 0; i < source.size(); i++){
+            if(source.get(i).getTitle().equals("EMPTY")){
+                source.remove(i);
+                break;
+            }
+        }
+        adapter = new recylerAdapter(source);
+        HorizontalLayout = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(HorizontalLayout);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+
 
     public void toggleAddressBar(){
         EditText addressBar = (EditText) findViewById(R.id.addressBar);
