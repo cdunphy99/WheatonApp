@@ -168,7 +168,9 @@ public class FragmentPopUp extends Fragment {
     View.OnClickListener removeSticky = new View.OnClickListener() {
         @Override
         public void onClick(View view){
-            deleteData(Sticky.getDocId());
+            if(Sticky.getDocId() != "xxx"){
+                deleteData(Sticky.getDocId());
+            }
             list.remove(Sticky);
             adapter.notifyDataSetChanged();
         }

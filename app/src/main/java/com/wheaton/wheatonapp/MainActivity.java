@@ -299,7 +299,7 @@ public class MainActivity extends AppCompatActivity {
     public void add(View view){
         Toast.makeText(getApplicationContext(), "YOU CLICKED ADD", Toast.LENGTH_SHORT).show();
         findViewById(R.id.recyclerview).setVisibility(View.VISIBLE);
-        source.add(new StickyNoteObject("New Sticky", "New Message"));
+        source.add(new StickyNoteObject("New Sticky", "New Message", "xxx", "xxx"));
         int indexE = -1;
         for (int i = 0; i < source.size(); i++){
             if(source.get(i).getTitle().equals("EMPTY")){
