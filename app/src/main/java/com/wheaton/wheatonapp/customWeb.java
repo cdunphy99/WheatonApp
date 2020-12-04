@@ -74,6 +74,7 @@ public class customWeb extends WebViewClient {
                                 Log.d("firestore", document.getId() + " => " + document.getData());
                                 noteContent.add(document);
 
+                                //Change this to a call to some main function
                                 source.add(new StickyNoteObject((String) document.get("name"), (String) document.get("text"), document.getId(), (String) document.get("url")));
                             }
                         } else {

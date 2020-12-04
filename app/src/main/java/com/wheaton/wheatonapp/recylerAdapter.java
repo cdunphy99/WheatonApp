@@ -107,6 +107,7 @@ public class recylerAdapter extends RecyclerView.Adapter<recylerAdapter.MyView> 
         });
     }
 
+
     // Override getItemCount which Returns
     // the length of the RecyclerView.
     @Override
