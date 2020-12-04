@@ -6,6 +6,7 @@ import android.os.Parcelable;
 public class StickyNoteObject implements Parcelable {
     private String Title;
     private String Msg;
+    private String docId;
 
     public StickyNoteObject(){
         setTitle("");
