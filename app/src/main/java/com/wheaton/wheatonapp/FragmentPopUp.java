@@ -146,6 +146,7 @@ public class FragmentPopUp extends Fragment {
         public void onClick(View view) {
             activity.findViewById(R.id.webView).setFocusable(true);
             activity.findViewById(R.id.webView).setFocusableInTouchMode(true);
+            activity.findViewById(R.id.webView).setClickable(false);
             FrameLayout f = (FrameLayout) activity.findViewById(R.id.stickyView);
             f.removeAllViews();
             adapter.notifyDataSetChanged();
@@ -157,6 +158,7 @@ public class FragmentPopUp extends Fragment {
         public void onClick(View view) {
             activity.findViewById(R.id.webView).setFocusable(true);
             activity.findViewById(R.id.webView).setFocusableInTouchMode(true);
+            activity.findViewById(R.id.webView).setClickable(false);
             FrameLayout f = (FrameLayout) activity.findViewById(R.id.stickyView);
             f.removeAllViews();
             onButtonShowPopupWindowClick(view);
@@ -167,17 +169,18 @@ public class FragmentPopUp extends Fragment {
     View.OnClickListener removeSticky = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if (Sticky.getDocId() != "xxx") {
+            if (!Sticky.getDocId().equals("xxx")) {
                 deleteData(Sticky.getDocId());
             }
             if (list.size() == 1) {
-                list.add(new StickyNoteObject("EMPTY", "EMPTY"));
+                list.add(new StickyNoteObject("EMPTY", "EMPTY", "xxx", "xxx"));
                 activity.findViewById(R.id.recyclerview).setVisibility(View.INVISIBLE);
             }
             list.remove(Sticky);
             adapter.notifyDataSetChanged();
             activity.findViewById(R.id.webView).setFocusable(true);
             activity.findViewById(R.id.webView).setFocusableInTouchMode(true);
+            activity.findViewById(R.id.webView).setClickable(false);
             FrameLayout f = (FrameLayout) activity.findViewById(R.id.stickyView);
             f.removeAllViews();
             adapter.notifyDataSetChanged();
