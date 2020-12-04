@@ -24,9 +24,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class FragmentPopUp extends Fragment {
@@ -39,7 +46,9 @@ public class FragmentPopUp extends Fragment {
         else{
             Log.d("firestore", "docId was blank in editData");
         }
+    }
 
+    public void editData(String name, String text) {
     }
 
     public StickyNoteObject Sticky;
@@ -66,9 +75,42 @@ public class FragmentPopUp extends Fragment {
             EditText tE = (EditText) rootView.findViewById(R.id.textViewTitle);
             EditText mE = (EditText) rootView.findViewById(R.id.textViewMsg);
             Sticky.setTitle(tE.getText().toString());
-            Sticky.setMsg(mE.getText().toString());
+            Sticky.setMsg(tE.getText().toString());
             list.set(p,Sticky);
-            editData(Sticky.getDocId(), tE.getText().toString(), mE.getText().toString());
+
+            Map<String, Object> note = new HashMap<>();
+
+            Date date = new Date();
+            Timestamp timeStamp = new Timestamp(date);
+
+            note.put("name", tE.getText().toString());
+            note.put("text", mE.getText().toString());
+            note.put("time", timeStamp);
+            note.put("id", MainActivity.myId);
+            //note.put("url", cu);
+
+
+            if(Sticky.getDocId() == null){
+                db.collection("notes")
+                        .add(note)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("firestore", "Note written with ID: " + documentReference.getId());
+                                Sticky.setDocId(documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("firestore", "Error adding note to firestore", e);
+                            }
+                        });
+            }
+            else{
+                editData(Sticky.getDocId(), tE.getText().toString(), mE.getText().toString());
+            }
+
         }
     };
 

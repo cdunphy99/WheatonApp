@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     View ChildView;
     int RecyclerViewItemPosition;
 
-    String myId = "1";
+    public static String myId = "1";
 
     public void pushData(String name, String text, String url){
         //Description:
