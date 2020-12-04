@@ -189,7 +189,30 @@ public class MainActivity extends AppCompatActivity {
         final FloatingActionButton miniFAB1 = findViewById(R.id.miniFAB1);
         final FloatingActionButton miniFAB2 = findViewById(R.id.miniFAB2);
 
-        ArrayList<Map<String, Object>> testArray = pullData();
+        final ArrayList<DocumentSnapshot> noteContent = new ArrayList<>();
+
+        db.collection("notes")
+                .whereEqualTo("id", myId)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d("firestore", document.getId() + " => " + document.getData());
+                                noteContent.add(document);
+
+                                //Needs to be something like this:
+                                //AddItemsToRecyclerViewArrayList(new StickyNoteObject(document.get("name"), document.get("text")))
+                                //document.get("value") can be used to get something from the note like document.get("url")
+                                //document.getId() is used to get the ID of the document in firestore
+                            }
+                        } else {
+                            Log.d("firestore", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
 
         String retId = prefs.getString("wheaton_myId", "none");
         Log.d("idWorks2", retId);
@@ -214,10 +237,6 @@ public class MainActivity extends AppCompatActivity {
 
             myId = inId;
         }
-
-        pullData();
-
-
 
         mainFAB.setOnClickListener(new View.OnClickListener() {
             @Override
