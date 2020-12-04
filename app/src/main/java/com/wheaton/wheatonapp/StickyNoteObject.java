@@ -47,6 +47,9 @@ public class StickyNoteObject implements Parcelable {
     public String getTitle() {
         return Title;
     }
+    public String getDocId() {
+        return docId;
+    }
 
     //setters
     public void setMsg(String msg) {
