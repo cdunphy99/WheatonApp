@@ -2,6 +2,7 @@ package com.wheaton.wheatonapp;
 
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -32,7 +33,13 @@ public class FragmentPopUp extends Fragment {
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public void editData(String docId, String name, String text) {
-        db.collection("notes").document(docId).update("name", name, "text", text);
+        if(!(docId == null)){
+            db.collection("notes").document(docId).update("name", name, "text", text);
+        }
+        else{
+            Log.d("firestore", "docId was blank in editData");
+        }
+
     }
 
     public StickyNoteObject Sticky;
