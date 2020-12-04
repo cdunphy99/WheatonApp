@@ -1,24 +1,16 @@
 package com.wheaton.wheatonapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
 public class stickyNotePopUpActivity extends AppCompatActivity {

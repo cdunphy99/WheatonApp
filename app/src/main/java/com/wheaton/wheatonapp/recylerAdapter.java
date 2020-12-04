@@ -1,20 +1,14 @@
 package com.wheaton.wheatonapp;
+
 import android.content.Context;
-import android.content.Intent;
-import android.os.Parcelable;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.view.LayoutInflater;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 // The adapter class which
