@@ -319,10 +319,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void add(View view){
+        Toast.makeText(getApplicationContext(), "YOU CLICKED ADD", Toast.LENGTH_SHORT).show();
         source.add(new StickyNoteObject("New Sticky", "New Message"));
         if (source.get(0).getTitle().equals("EMPTY")){
             source.remove(1);
         }
+        adapter = new recylerAdapter(source);
+        HorizontalLayout = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(HorizontalLayout);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
