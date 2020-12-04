@@ -194,7 +194,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Context context;
                 CharSequence text;
-                Toast.makeText(getApplicationContext(), "You have pressed the FAB.", Toast.LENGTH_SHORT).show();
                 // I will look into transitions to make this visibility change look "smooth" to the user. right now it should look instant.
                 if(subFABsVisible) {
                     miniFAB1.hide();
@@ -292,7 +291,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void add(View view){
-        Toast.makeText(getApplicationContext(), "YOU CLICKED ADD", Toast.LENGTH_SHORT).show();
         findViewById(R.id.recyclerview).setVisibility(View.VISIBLE);
         webView = findViewById(R.id.webView);
 
