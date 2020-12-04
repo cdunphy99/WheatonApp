@@ -234,11 +234,6 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webView.setWebViewClient(new customWeb(adapter,HorizontalLayout,recyclerView,MainActivity.this));
         webView.loadUrl("https://www.google.com");
-
-
-
-
-
     }
 
 
@@ -299,7 +294,9 @@ public class MainActivity extends AppCompatActivity {
     public void add(View view){
         Toast.makeText(getApplicationContext(), "YOU CLICKED ADD", Toast.LENGTH_SHORT).show();
         findViewById(R.id.recyclerview).setVisibility(View.VISIBLE);
-        source.add(new StickyNoteObject("New Sticky", "New Message", "xxx", "xxx"));
+        webView = findViewById(R.id.webView);
+
+        source.add(new StickyNoteObject("New Sticky", "New Message", "xxx", webView.getUrl()));
         int indexE = -1;
         for (int i = 0; i < source.size(); i++){
             if(source.get(i).getTitle().equals("EMPTY")){

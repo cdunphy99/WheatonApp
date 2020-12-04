@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -114,7 +115,10 @@ public class FragmentPopUp extends Fragment {
             note.put("text", mE.getText().toString());
             note.put("time", timeStamp);
             note.put("id", MainActivity.myId);
-            //note.put("url", cu);
+
+            WebView web = activity.findViewById(R.id.webView);
+
+            note.put("url", web.getUrl());
 
 
             if(Sticky.getDocId() == "xxx"){
