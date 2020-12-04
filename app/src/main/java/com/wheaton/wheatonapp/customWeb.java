@@ -67,6 +67,7 @@ public class customWeb extends WebViewClient {
 
         db.collection("notes")
                 .whereEqualTo("id", MainActivity.myId)
+                .whereEqualTo("url", currURL)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
